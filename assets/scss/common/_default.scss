@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 * {
     box-sizing: border-box;
 }
@@ -9,13 +11,24 @@
      */
     --ui-unit: 4px;
     --ui-col: 40px;
-    --ui-accent-color: #28b20d;
-    --ui-secondary-color: #109ed5;
+    --ui-primary-color: #3498db;
+    --ui-secondary-color: #e74c3c;
+    --ui-additional-color: #2ecc71;
     --ui-white-color: #fff;
     --ui-black-color: #000;
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: var(--ui-black-color);
+}
+
+.container {
+    width: 800px;
+    margin: 0 auto;
+
+    @include respond-to(tablet) {
+        width: 100%;
+        padding: 0 calc(var(--ui-unit) * 4);
+    }
 }

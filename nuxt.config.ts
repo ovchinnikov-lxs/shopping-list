@@ -2,7 +2,10 @@
 import stylelint from 'vite-plugin-stylelint';
 
 export default defineNuxtConfig({
+    ssr: false,
+
     app: {
+        baseURL: '/shopping-list/',
         head: {
             charset: 'utf-16',
             viewport: 'width=device-width, initial-scale=1',
@@ -18,7 +21,16 @@ export default defineNuxtConfig({
 
     modules: [
         '@nuxtjs/svg-sprite',
+        '@pinia/nuxt',
     ],
+
+    pinia: {
+        autoImports: [
+            // automatically imports `defineStore`
+            'defineStore', // import { defineStore } from 'pinia'
+            ['defineStore', 'definePiniaStore'], // import { defineStore as definePiniaStore } from 'pinia'
+        ],
+    },
 
     router: {
         options: {

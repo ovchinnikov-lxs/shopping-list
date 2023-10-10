@@ -1,22 +1,40 @@
 <script setup lang="ts">
-// UiKit Components
-import { UiImage } from '@ovchinnikov-lxs-frontend/ui-kit';
-const imageUrl = 'https://images.unsplash.com/photo-1633409361618-c73427e4e206?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1780&q=80';
+import { useListStore } from '~/stores/listStore';
+import { useModalStore } from '~/stores/modalStore';
 
-const counter = useCounter();
+const listStore = useListStore();
+
+const onOpenModal = () => {
+    const modal = useModalStore();
+    modal.changeState();
+};
 </script>
 
 <template>
-    <div class="TheHeader">
+    <header class="TheHeader">
         <div :class="$style.wrapper">
-            <UiImage
-                :origin="imageUrl"
-                :class="$style.image"
-            />
+            <main :class="$style.container" class="container">
+                <h1>Shopping list</h1>
 
-            <div> counter: {{ counter }}</div>
+                <UiButton
+                    v-if="listStore.current.length"
+                    size="small"
+                    @click="onOpenModal"
+                >
+                    Поделиться
+                </UiButton>
+
+                <UiButton
+                    v-if="listStore.current.length"
+                    size="small"
+                    :class="$style.clear"
+                    @click="listStore.clearList"
+                >
+                    Отчистить список
+                </UiButton>
+            </main>
         </div>
-    </div>
+    </header>
 </template>
 
 
@@ -27,16 +45,25 @@ const counter = useCounter();
     align-items: center;
     width: 100%;
     height: 100%;
-    column-gap: calc(var(--ui-unit) * 4);
-    font-size: calc(var(--ui-unit) * 10);
+    min-height: calc(var(--ui-unit) * 13);
+    padding: calc(var(--ui-unit) * 3) 0;
+    background-color: var(--ui-primary-color);
+    color: var(--ui-white-color);
 
-    @include hover {
-        color: var(--ui-accent-color);
+    @include respond-to(tablet) {
+        h1 {
+            font-size: 14px;
+        }
     }
 }
 
-.image {
-    width: 50px;
-    height: 50px;
+.container {
+    display: flex;
+    align-items: center;
+    column-gap: calc(var(--ui-unit) * 3);
+}
+
+.clear {
+    margin-left: auto;
 }
 </style>
