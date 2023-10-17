@@ -36,6 +36,32 @@ const copyTextToClipboard = (text: string): undefined | Promise<void> => {
     });
 };
 
+function textToBase64(string: string): string {
+    const utf8 = unescape(encodeURIComponent(string));
+    const array = new Uint8Array(utf8.length);
+    for (let i = 0; i < utf8.length; i++) {
+        array[i] = utf8.charCodeAt(i);
+    }
+    let binary = '';
+    for (let i = 0; i < array.byteLength; i++) {
+        binary += String.fromCharCode(array[i]);
+    }
+    return window.btoa(binary);
+}
+
+
+function base64ToText(base64: string): string {
+    const binary = window.atob(base64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+    }
+    const text = String.fromCharCode.apply(null, bytes);
+    return decodeURIComponent(escape(text));
+}
+
 export {
     copyTextToClipboard,
+    textToBase64,
+    base64ToText,
 };
