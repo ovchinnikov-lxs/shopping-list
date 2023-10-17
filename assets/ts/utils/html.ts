@@ -56,7 +56,8 @@ function base64ToText(base64: string): string {
     for (let i = 0; i < binary.length; i++) {
         bytes[i] = binary.charCodeAt(i);
     }
-    const text = String.fromCharCode.apply(null, bytes);
+    const numbers = Array.from(bytes);
+    const text = String.fromCharCode.apply(null, numbers);
     return decodeURIComponent(escape(text));
 }
 
