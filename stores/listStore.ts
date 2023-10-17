@@ -23,7 +23,7 @@ export const useListStore = defineStore('list', {
             const local = localStorage.getItem(PRODUCT_CURRENT_LIST_KEY);
 
             if (query.current) {
-                this.current = JSON.parse(String(query.current));
+                this.current = JSON.parse(atob(String(query.current)));
                 this.saveCurrent();
 
                 const currentUrl = new URL(window.location.href);
@@ -31,7 +31,7 @@ export const useListStore = defineStore('list', {
                 currentUrl.search = newSearchParams.toString();
                 window.history.replaceState({}, document.title, currentUrl);
             } else if (local) {
-                this.current = JSON.parse(local);
+                this.current = JSON.parse(atob(local));
             } else {
                 this.saveCurrent();
             }
@@ -41,18 +41,18 @@ export const useListStore = defineStore('list', {
             const data = localStorage.getItem(PRODUCT_DATA_LIST_KEY);
 
             if (data) {
-                this.data = JSON.parse(data);
+                this.data = JSON.parse(atob(data));
             } else {
                 this.saveData();
             }
         },
 
         saveCurrent() {
-            localStorage.setItem(PRODUCT_CURRENT_LIST_KEY, JSON.stringify(this.current));
+            localStorage.setItem(PRODUCT_CURRENT_LIST_KEY, btoa(JSON.stringify(this.current)));
         },
 
         saveData() {
-            localStorage.setItem(PRODUCT_DATA_LIST_KEY, JSON.stringify(this.data));
+            localStorage.setItem(PRODUCT_DATA_LIST_KEY, btoa(JSON.stringify(this.data)));
         },
 
         addProduct(payload: IProduct) {
