@@ -13,7 +13,7 @@ defineProps({
     },
 
     count: {
-        type: Number,
+        type: [Number, String],
         required: true,
     },
 });
@@ -36,7 +36,7 @@ const styleList = computed(() => [{
             <div :class="$style.name">
                 {{ name }}
 
-                <div v-if="count > 1" :class="$style.count">
+                <div v-if="+count > 1" :class="$style.count">
                     {{ count }}
                 </div>
             </div>
@@ -46,13 +46,13 @@ const styleList = computed(() => [{
                     <UiIcon
                         name="ui/plus"
                         :class="$style.plus"
-                        @click="$emit('change', { count: count + 1})"
+                        @click="$emit('change', { count: +count + 1})"
                     />
 
                     <UiIcon
                         name="ui/minus"
-                        :class="[$style.minus, { [$style['--is-disabled']]: count < 2 }]"
-                        @click="$emit('change', { count: count - 1})"
+                        :class="[$style.minus, { [$style['--is-disabled']]: +count < 2 }]"
+                        @click="$emit('change', { count: +count - 1})"
                     />
                 </div>
 

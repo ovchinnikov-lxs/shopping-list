@@ -1,6 +1,6 @@
 {
     "name": "@ovchinnikov-lxs/shopping-list",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "scripts": {
         "build": "nuxt build",
         "dev": "nuxt dev",
@@ -22,13 +22,15 @@
         "nanoid": "^5.0.1",
         "normalize.css": "^8.0.1",
         "pinia": "^2.1.6",
-        "qrcode": "^1.5.3"
+        "qrcode": "^1.5.3",
+        "qs": "^6.11.2"
     },
     "devDependencies": {
         "@nuxt/devtools": "latest",
         "@nuxtjs/eslint-config-typescript": "^12.0.0",
         "@types/node": "^18.16.19",
         "@types/qrcode": "^1.5.2",
+        "@types/qs": "^6.9.9",
         "eslint": "^8.34.0",
         "husky": "^8.0.3",
         "nano-staged": "^0.5.0",

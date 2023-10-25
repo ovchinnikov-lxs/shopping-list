@@ -1,17 +1,29 @@
+import { parse } from 'qs';
 import { IProduct } from '~/types/product';
 import { PRODUCT_CURRENT_LIST_KEY, PRODUCT_DATA_LIST_KEY } from 'assets/ts/constants/product';
-import { base64ToText, textToBase64 } from 'assets/ts/utils/html';
+
+type TypeCurrent = {
+    [key: string]: IProduct
+}
 
 interface IListState {
-    current: IProduct[];
-    data: IProduct[][];
+    current: TypeCurrent;
+    data: {
+        [key: string]: TypeCurrent
+    };
 }
 
 export const useListStore = defineStore('list', {
     state: (): IListState => ({
-        current: [],
-        data: [],
+        current: {},
+        data: {},
     }),
+
+    getters: {
+        hasCurrent(): boolean {
+            return Boolean(Object.keys(this.current)?.length);
+        },
+    },
 
     actions: {
         fetchInitial() {
@@ -23,8 +35,8 @@ export const useListStore = defineStore('list', {
             const { query } = useRoute();
             const local = localStorage.getItem(PRODUCT_CURRENT_LIST_KEY);
 
-            if (query.current) {
-                this.current = JSON.parse(base64ToText(String(query.current)));
+            if (query) {
+                this.current = parse(query);
                 this.saveCurrent();
 
                 const currentUrl = new URL(window.location.href);
@@ -32,7 +44,7 @@ export const useListStore = defineStore('list', {
                 currentUrl.search = newSearchParams.toString();
                 window.history.replaceState({}, document.title, currentUrl);
             } else if (local) {
-                this.current = JSON.parse(base64ToText(local));
+                this.current = JSON.parse(local);
             } else {
                 this.saveCurrent();
             }
@@ -42,45 +54,36 @@ export const useListStore = defineStore('list', {
             const data = localStorage.getItem(PRODUCT_DATA_LIST_KEY);
 
             if (data) {
-                this.data = JSON.parse(base64ToText(data));
+                this.data = JSON.parse(data);
             } else {
                 this.saveData();
             }
         },
 
         saveCurrent() {
-            localStorage.setItem(PRODUCT_CURRENT_LIST_KEY, textToBase64(JSON.stringify(this.current)));
+            localStorage.setItem(PRODUCT_CURRENT_LIST_KEY, JSON.stringify(this.current));
         },
 
         saveData() {
-            localStorage.setItem(PRODUCT_DATA_LIST_KEY, textToBase64(JSON.stringify(this.data)));
+            localStorage.setItem(PRODUCT_DATA_LIST_KEY, JSON.stringify(this.data));
         },
 
-        addProduct(payload: IProduct) {
-            this.current.push(payload);
+        addProduct({ id, product }: {id: string, product: IProduct}) {
+            this.current[id] = product;
             this.saveCurrent();
         },
 
         removeProduct(id: string) {
-            this.current = this.current.filter((p: IProduct) => p.id !== id);
+            delete this.current[id];
             this.saveCurrent();
         },
 
         changeProduct(id: string, payload: IProduct) {
-            this.current = this.current.map((p: IProduct): IProduct => {
-                if (p.id === id) {
-                    return {
-                        ...p,
-                        ...payload,
-                    };
-                }
-
-                return p;
-            });
+            this.current[id] = payload;
         },
 
         clearList() {
-            this.current = [];
+            this.current = {};
             this.saveCurrent();
         },
     },

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { stringify } from 'qs';
 import { toDataURL } from 'qrcode';
 import { useModalStore } from '~/stores/modalStore';
 import { copyTextToClipboard } from 'assets/ts/utils/html';
@@ -8,6 +9,7 @@ const modal = useModalStore();
 
 const buttonTitle = ref('Скопировать ссылку');
 const qrImage = ref('');
+const shareUrl = ref('');
 
 const generateQR = async (text: string) => {
     try {
@@ -18,11 +20,13 @@ const generateQR = async (text: string) => {
 };
 
 onMounted(() => {
-    generateQR(`${location.href}?current=${localStorage.getItem(PRODUCT_CURRENT_LIST_KEY)}`);
+    const current = JSON.parse(localStorage.getItem(PRODUCT_CURRENT_LIST_KEY) || '{}');
+    shareUrl.value = `${location.href}?${stringify(current)}`;
+    generateQR(shareUrl.value);
 });
 
 const onCopy = async () => {
-    await copyTextToClipboard(`${location.href}?current=${localStorage.getItem(PRODUCT_CURRENT_LIST_KEY)}`);
+    await copyTextToClipboard(shareUrl.value);
     buttonTitle.value = 'Ссылка скопирована';
 
     setTimeout(() => {

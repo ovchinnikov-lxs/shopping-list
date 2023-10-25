@@ -12,10 +12,12 @@ function useForm() {
         const [name, count] = actualValue.value.split(/,\s*|,/);
 
         listStore.addProduct({
-            id: nanoid(7),
-            name,
-            count: Number(count || 1),
-            icon: 'custom',
+            id: nanoid(4),
+            product: {
+                name,
+                count: Number(count || 1),
+                icon: 'custom',
+            },
         });
 
         actualValue.value = '';
@@ -60,14 +62,14 @@ const { onSubmit, actualValue } = useForm();
 
             </form>
 
-            <ul v-if="listStore.current.length" :class="$style.list">
-                <li v-for="item in listStore.current" :key="item.id">
+            <ul v-if="listStore.hasCurrent" :class="$style.list">
+                <li v-for="(item, id) in listStore.current" :key="id">
                     <ListItem
                         :icon="item.icon"
                         :name="item.name"
                         :count="item.count"
-                        @remove="listStore.removeProduct(item.id)"
-                        @change="val => listStore.changeProduct(item.id,{...item, ...val})"
+                        @remove="listStore.removeProduct(id)"
+                        @change="val => listStore.changeProduct(id,{...item, ...val})"
                     />
                 </li>
             </ul>

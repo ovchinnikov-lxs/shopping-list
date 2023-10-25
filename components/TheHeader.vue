@@ -17,7 +17,7 @@ const onOpenModal = () => {
                 <h1>Shopping list</h1>
 
                 <UiButton
-                    v-if="listStore.current.length"
+                    v-if="listStore.hasCurrent"
                     size="small"
                     @click="onOpenModal"
                 >
@@ -25,7 +25,7 @@ const onOpenModal = () => {
                 </UiButton>
 
                 <UiButton
-                    v-if="listStore.current.length"
+                    v-if="listStore.hasCurrent"
                     size="small"
                     :class="$style.clear"
                     @click="listStore.clearList"

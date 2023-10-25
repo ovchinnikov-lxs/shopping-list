@@ -2,7 +2,7 @@
     <div class="TheFooter">
         <div :class="$style.wrapper">
             <main class="container">
-                VERSION: 0.0.1
+                VERSION: 1.0.0
                 |
                 <NuxtLink to="https://github.com/ovchinnikov-lxs" :class="$style.link" >
                     ME

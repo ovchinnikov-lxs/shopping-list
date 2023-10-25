@@ -7,10 +7,11 @@ export default defineNuxtConfig({
     app: {
         baseURL: '/shopping-list/',
         head: {
+            title: 'Shopping List',
             charset: 'utf-16',
             viewport: 'width=device-width, initial-scale=1',
             meta: [
-                { name: 'description', content: 'Nuxt 3 template' },
+                { name: 'description', content: 'You can create and share shopping list' },
             ],
         },
     },
