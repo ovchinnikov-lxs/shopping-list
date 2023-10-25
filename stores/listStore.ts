@@ -36,8 +36,12 @@ export const useListStore = defineStore('list', {
             const local = localStorage.getItem(PRODUCT_CURRENT_LIST_KEY);
 
             if (query) {
-                this.current = parse(query);
-                this.saveCurrent();
+                // @ts-ignore
+                const parsedQuery = parse(query);
+                if (Object.values(parsedQuery).find(item => typeof item === 'object')) {
+                    this.current = parsedQuery as TypeCurrent;
+                    this.saveCurrent();
+                }
 
                 const currentUrl = new URL(window.location.href);
                 const newSearchParams = new URLSearchParams();

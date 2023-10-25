@@ -68,8 +68,8 @@ const { onSubmit, actualValue } = useForm();
                         :icon="item.icon"
                         :name="item.name"
                         :count="item.count"
-                        @remove="listStore.removeProduct(id)"
-                        @change="val => listStore.changeProduct(id,{...item, ...val})"
+                        @remove="listStore.removeProduct(id as string)"
+                        @change="val => listStore.changeProduct(id as string,{...item, ...val})"
                     />
                 </li>
             </ul>
