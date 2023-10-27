@@ -45,6 +45,9 @@ const onCopy = async () => {
                     :class="$style.image"
                 >
                 <UiButton @click="onCopy">{{ buttonTitle }}</UiButton>
+                <NuxtLink class="UiButton --medium-size" :to="`https://t.me/share/url?url=${shareUrl}`">
+                    Поделиться в TG
+                </NuxtLink>
             </div>
         </div>
     </div>
