@@ -1,8 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import stylelint from 'vite-plugin-stylelint';
 
+const DESCRIPTION = 'Welcome to our web application for shopping lists! Here, you will find a convenient way to create and manage your shopping lists. Create lists for grocery shopping, plan your culinary experiments, or even organize your tasks.';
+
 export default defineNuxtConfig({
     ssr: false,
+    spaLoadingTemplate: 'spa-loading-template.html',
 
     app: {
         baseURL: '/shopping-list/',
@@ -14,16 +17,16 @@ export default defineNuxtConfig({
                 lang: 'ru',
             },
             meta: [
-                { name: 'description', content: 'Welcome to our web application for shopping lists! Here, you will find a convenient way to create and manage your shopping lists. Create lists for grocery shopping, plan your culinary experiments, or even organize your tasks.' },
+                { name: 'description', content: DESCRIPTION },
                 { name: 'keywords', content: 'Shopping list, share list' },
                 { name: 'author', content: 'Alexander Ovchinnikov' },
                 { property: 'og:title', content: 'Shopping List' },
-                { property: 'og:description', content: 'Welcome to our web application for shopping lists! Here, you will find a convenient way to create and manage your shopping lists. Create lists for grocery shopping, plan your culinary experiments, or even organize your tasks.' },
+                { property: 'og:description', content: DESCRIPTION },
                 { property: 'og:type', content: 'website' },
                 { property: 'og:url', content: 'https://ovchinnikov-lxs.github.io/shopping-list/' },
                 { name: 'twitter:card', content: 'app' },
                 { name: 'twitter:title', content: 'Shopping List - create and share' },
-                { name: 'twitter:description', content: 'Welcome to our web application for shopping lists! Here, you will find a convenient way to create and manage your shopping lists. Create lists for grocery shopping, plan your culinary experiments, or even organize your tasks.' },
+                { name: 'twitter:description', content: DESCRIPTION },
             ],
         },
     },
@@ -35,7 +38,42 @@ export default defineNuxtConfig({
     modules: [
         '@nuxtjs/svg-sprite',
         '@pinia/nuxt',
+        '@vite-pwa/nuxt',
     ],
+
+    pwa: {
+        manifest: {
+            name: 'Shopping List',
+            short_name: 'SL',
+            start_url: '/shopping-list/',
+            description: DESCRIPTION,
+            background_color: '#ffffff',
+            theme_color: '#3498db',
+            display: 'standalone',
+            lang: 'ru',
+            icons: [
+                {
+                    src: 'https://img.icons8.com/?size=72&id=bfckrEmgzrfN&format=png',
+                    sizes: '72x72',
+                    type: 'image/png',
+                },
+                {
+                    src: 'https://img.icons8.com/?size=96&id=bfckrEmgzrfN&format=png',
+                    sizes: '96x96',
+                    type: 'image/png',
+                },
+            ],
+        },
+        workbox: {
+            navigateFallbackDenylist: [/^\//],
+        },
+        devOptions: {
+            enabled: true,
+            suppressWarnings: true,
+            navigateFallbackAllowlist: [/^\/$/],
+            type: 'module',
+        },
+    },
 
     pinia: {
         autoImports: [

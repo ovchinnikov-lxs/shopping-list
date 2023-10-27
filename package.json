@@ -31,6 +31,7 @@
         "@types/node": "^18.16.19",
         "@types/qrcode": "^1.5.2",
         "@types/qs": "^6.9.9",
+        "@vite-pwa/nuxt": "^0.1.1",
         "eslint": "^8.34.0",
         "husky": "^8.0.3",
         "nano-staged": "^0.5.0",
