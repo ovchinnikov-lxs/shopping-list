@@ -35,7 +35,7 @@ export const useListStore = defineStore('list', {
             const { query } = useRoute();
             const local = localStorage.getItem(PRODUCT_CURRENT_LIST_KEY);
 
-            if (query) {
+            if (Object.keys(query).length) {
                 // @ts-ignore
                 const parsedQuery = parse(query);
                 if (Object.values(parsedQuery).find(item => typeof item === 'object')) {
