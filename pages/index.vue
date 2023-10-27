@@ -9,6 +9,10 @@ function useForm() {
     const actualValue = ref('');
 
     const onSubmit = async () => {
+        if (!actualValue.value) {
+            return false;
+        }
+
         const [name, count] = actualValue.value.split(/,\s*|,/);
 
         listStore.addProduct({
