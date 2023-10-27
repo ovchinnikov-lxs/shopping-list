@@ -13,7 +13,7 @@ const modal = useModalStore();
         </div>
 
         <transition name="fade">
-            <TheModal v-if="modal.isOpened" :class="$style.modal"/>
+            <LazyTheModal v-if="modal.isOpened" :class="$style.modal"/>
         </transition>
 
         <TheFooter :class="$style.footer" />

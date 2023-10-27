@@ -16,22 +16,22 @@ const onOpenModal = () => {
             <main :class="$style.container" class="container">
                 <h1>Shopping list</h1>
 
-                <UiButton
+                <LazyUiButton
                     v-if="listStore.hasCurrent"
                     size="small"
                     @click="onOpenModal"
                 >
                     Поделиться
-                </UiButton>
+                </LazyUiButton>
 
-                <UiButton
+                <LazyUiButton
                     v-if="listStore.hasCurrent"
                     size="small"
                     :class="$style.clear"
                     @click="listStore.clearList"
                 >
                     Отчистить список
-                </UiButton>
+                </LazyUiButton>
             </main>
         </div>
     </header>

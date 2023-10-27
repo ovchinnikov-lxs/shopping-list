@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { nanoid } from 'nanoid';
 import { useListStore } from '~/stores/listStore';
-import ListItem from '~/components/List/ListItem.vue';
 
 const listStore = useListStore();
 
@@ -68,7 +67,7 @@ const { onSubmit, actualValue } = useForm();
 
             <ul v-if="listStore.hasCurrent" :class="$style.list">
                 <li v-for="(item, id) in listStore.current" :key="id">
-                    <ListItem
+                    <LazyListItem
                         :icon="item.icon"
                         :name="item.name"
                         :count="item.count"

@@ -4,11 +4,19 @@
             <main class="container">
                 VERSION: 1.0.0
                 |
-                <NuxtLink to="https://github.com/ovchinnikov-lxs" :class="$style.link" >
+                <NuxtLink
+                    to="https://github.com/ovchinnikov-lxs"
+                    title="ME"
+                    :class="$style.link"
+                >
                     ME
                 </NuxtLink>
                 |
-                <NuxtLink to="https://github.com/ovchinnikov-lxs/shopping-list" :class="$style.link">
+                <NuxtLink
+                    to="https://github.com/ovchinnikov-lxs/shopping-list"
+                    title="REPO"
+                    :class="$style.link"
+                >
                     REPO
                 </NuxtLink>
             </main>
