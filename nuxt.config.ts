@@ -17,6 +17,7 @@ export default defineNuxtConfig({
                 lang: 'ru',
             },
             meta: [
+                { name: 'theme-color', content: '#3498db' },
                 { name: 'description', content: DESCRIPTION },
                 { name: 'keywords', content: 'Shopping list, share list' },
                 { name: 'author', content: 'Alexander Ovchinnikov' },
@@ -60,6 +61,17 @@ export default defineNuxtConfig({
                 {
                     src: 'https://img.icons8.com/?size=96&id=bfckrEmgzrfN&format=png',
                     sizes: '96x96',
+                    type: 'image/png',
+                    purpose: 'any maskable',
+                },
+                {
+                    src: 'https://img.icons8.com/?size=144&id=bfckrEmgzrfN&format=png',
+                    sizes: '144x144',
+                    type: 'image/png',
+                },
+                {
+                    src: 'https://img.icons8.com/?size=512&id=bfckrEmgzrfN&format=png',
+                    sizes: '512x512',
                     type: 'image/png',
                 },
             ],
