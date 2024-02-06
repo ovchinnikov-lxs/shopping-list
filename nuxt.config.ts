@@ -5,7 +5,16 @@ const DESCRIPTION = 'Welcome to our web application for shopping lists! Here, yo
 
 export default defineNuxtConfig({
     ssr: false,
+
     spaLoadingTemplate: 'spa-loading-template.html',
+
+    imports: {
+        dirs: [
+            'stores',
+            'utils/**',
+        ],
+        global: true,
+    },
 
     app: {
         baseURL: '/shopping-list/',
@@ -43,6 +52,7 @@ export default defineNuxtConfig({
     ],
 
     pwa: {
+        registerType: 'autoUpdate',
         manifest: {
             name: 'Shopping List',
             short_name: 'SL',
@@ -80,7 +90,7 @@ export default defineNuxtConfig({
             navigateFallbackDenylist: [/^\//],
         },
         devOptions: {
-            enabled: true,
+            enabled: process.env.NODE_ENV === 'development',
             suppressWarnings: true,
             navigateFallbackAllowlist: [/^\/$/],
             type: 'module',

@@ -2,8 +2,6 @@
 import { stringify } from 'qs';
 import { toDataURL } from 'qrcode';
 import { useModalStore } from '~/stores/modalStore';
-import { copyTextToClipboard } from 'assets/ts/utils/html';
-import { PRODUCT_CURRENT_LIST_KEY } from 'assets/ts/constants/product';
 
 const modal = useModalStore();
 

@@ -1,6 +1,5 @@
 import { parse } from 'qs';
-import { IProduct } from '~/types/product';
-import { PRODUCT_CURRENT_LIST_KEY, PRODUCT_DATA_LIST_KEY } from 'assets/ts/constants/product';
+import type { IProduct } from '~/types/product';
 
 type TypeCurrent = {
     [key: string]: IProduct

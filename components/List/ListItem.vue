@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { getRandomColor } from 'assets/ts/utils/color';
-
 defineProps({
     icon: {
         type: String,

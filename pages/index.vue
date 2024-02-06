@@ -12,15 +12,17 @@ function useForm() {
             return false;
         }
 
-        const [name, count] = actualValue.value.split(/,\s*|,/);
+        actualValue.value.split('\n').forEach(item => {
+            const [name, count] = item.split(/,\s*|,/);
 
-        listStore.addProduct({
-            id: nanoid(4),
-            product: {
-                name,
-                count: Number(count || 1),
-                icon: 'custom',
-            },
+            listStore.addProduct({
+                id: nanoid(4),
+                product: {
+                    name,
+                    count: Number(count || 1),
+                    icon: 'custom',
+                },
+            });
         });
 
         actualValue.value = '';
@@ -45,24 +47,16 @@ const { onSubmit, actualValue } = useForm();
         <div :class="$style.wrapper">
             <form :class="$style.header" @submit.prevent="onSubmit">
 
-                <UiFormCell :class="$style.cell">
-                    <template #default>
-                        <UiInput
-                            id="product-input"
-                            v-model="actualValue"
-                            placeholder="Введите название"
-                            :class="$style.input"
-                        />
-                    </template>
-                    <template #info>
-                        Если нужно кол-во, укажите через запятую
-                    </template>
-                </UiFormCell>
+                <UiTextarea
+                    id="product-input"
+                    v-model="actualValue"
+                    placeholder="Введите название"
+                    :class="$style.input"
+                />
 
                 <UiButton :disabled="!actualValue" :class="$style.button">
                     Добавить
                 </UiButton>
-
             </form>
 
             <ul v-if="listStore.hasCurrent" :class="$style.list">
@@ -85,22 +79,25 @@ const { onSubmit, actualValue } = useForm();
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
     row-gap: calc(var(--ui-unit) * 8);
+
+    @include respond-to(tablet) {
+        flex-direction: column-reverse;
+    }
 }
 
 .header {
     display: flex;
-    align-items: flex-start;
+    align-items: flex-end;
     column-gap: calc(var(--ui-unit) * 3);
-}
-
-.cell {
-    width: 100%;
 }
 
 .input {
     width: 100%;
+
+    @include respond-to(tablet) {
+        margin-top: auto;
+    }
 }
 
 .button {

@@ -4,6 +4,6 @@ interface IProduct {
     count: number;
 }
 
-export {
+export type {
     IProduct,
 };

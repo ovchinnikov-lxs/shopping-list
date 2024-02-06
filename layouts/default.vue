@@ -27,7 +27,7 @@ const modal = useModalStore();
     flex-direction: column;
     width: 100%;
     height: 100%;
-    min-height: 100vh;
+    min-height: 100dvh;
 }
 
 .header,
@@ -36,9 +36,16 @@ const modal = useModalStore();
 }
 
 .container {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
     padding-top: calc(var(--ui-unit) * 4);
     padding-bottom: calc(var(--ui-unit) * 4);
+
+    & > div {
+        display: flex;
+        flex-grow: 1;
+    }
 }
 
 .modal {
