@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// @ts-ignore
 import { UiInput } from '@ovchinnikov-lxs-frontend/ui-kit';
 </script>
 
