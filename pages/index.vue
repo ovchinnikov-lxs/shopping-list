@@ -96,7 +96,7 @@ const { onSubmit, actualValue } = useForm();
         bottom: 0;
         left: 0;
         z-index: 2;
-        padding: 16px 0;
+        padding: 16px 0 32px;
         background-color: var(--ui-white-color);
     }
 }
