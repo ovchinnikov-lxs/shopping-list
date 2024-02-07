@@ -74,10 +74,12 @@ const { onSubmit, actualValue } = useForm();
 
 <style lang="scss" module>
 .wrapper {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
     row-gap: calc(var(--ui-unit) * 8);
+    background-color: var(--ui-white-color);
 
     @include respond-to(tablet) {
         flex-direction: column-reverse;
@@ -88,6 +90,15 @@ const { onSubmit, actualValue } = useForm();
     display: flex;
     align-items: flex-end;
     column-gap: calc(var(--ui-unit) * 3);
+
+    @include respond-to(tablet) {
+        position: sticky;
+        bottom: 0;
+        left: 0;
+        z-index: 2;
+        padding: 16px 0;
+        background-color: var(--ui-white-color);
+    }
 }
 
 .input {
