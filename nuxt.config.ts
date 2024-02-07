@@ -46,7 +46,6 @@ export default defineNuxtConfig({
     devtools: { enabled: true },
 
     modules: [
-        '@nuxtjs/svg-sprite',
         '@pinia/nuxt',
         '@vite-pwa/nuxt',
     ],

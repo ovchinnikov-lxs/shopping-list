@@ -1,6 +1,6 @@
 {
     "name": "@ovchinnikov-lxs/shopping-list",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "scripts": {
         "build": "nuxt build",
         "dev": "nuxt dev --host",
@@ -16,7 +16,6 @@
         "lint:fix": "npm run el:fix && npm run sl:fix"
     },
     "dependencies": {
-        "@nuxtjs/svg-sprite": "^1.0.2",
         "@ovchinnikov-lxs-frontend/ui-kit": "^2.10.3",
         "@pinia/nuxt": "^0.4.11",
         "nanoid": "^5.0.1",

@@ -2,7 +2,7 @@
     <div class="TheFooter">
         <div :class="$style.wrapper">
             <main class="container">
-                VERSION: 1.1.0
+                VERSION: 1.2.0
                 |
                 <NuxtLink
                     to="https://github.com/ovchinnikov-lxs"

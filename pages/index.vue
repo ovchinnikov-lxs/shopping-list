@@ -20,7 +20,6 @@ function useForm() {
                 product: {
                     name,
                     count: Number(count || 1),
-                    icon: 'custom',
                 },
             });
         });
@@ -62,7 +61,6 @@ const { onSubmit, actualValue } = useForm();
             <ul v-if="listStore.hasCurrent" :class="$style.list">
                 <li v-for="(item, id) in listStore.current" :key="id">
                     <LazyListItem
-                        :icon="item.icon"
                         :name="item.name"
                         :count="item.count"
                         @remove="listStore.removeProduct(id as string)"

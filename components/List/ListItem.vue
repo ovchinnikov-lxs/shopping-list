@@ -1,10 +1,5 @@
 <script setup lang="ts">
 defineProps({
-    icon: {
-        type: String,
-        default: 'custom',
-    },
-
     name: {
         type: String,
         required: true,
@@ -20,16 +15,17 @@ defineEmits<{
     change: [value: object]
     remove: [void]
 }>();
-
-const styleList = computed(() => [{
-    '--icon-color': getRandomColor(),
-}]);
 </script>
 
 <template>
     <div class="ListItem">
-        <div :style="styleList" :class="$style.wrapper">
-            <UiIcon name="product/custom" :class="$style.icon"/>
+        <div :class="$style.wrapper">
+            <img
+                :src="`https://cataas.com/cat?width=48&height=48&v=${name}`"
+                alt=""
+                loading="lazy"
+                :class="$style.icon"
+            />
 
             <div :class="$style.name">
                 {{ name }}
@@ -41,21 +37,18 @@ const styleList = computed(() => [{
 
             <div :class="$style.action">
                 <div :class="$style.change">
-                    <UiIcon
-                        name="ui/plus"
+                    <div
                         :class="$style.plus"
                         @click="$emit('change', { count: +count + 1})"
                     />
 
-                    <UiIcon
-                        name="ui/minus"
+                    <div
                         :class="[$style.minus, { [$style['--is-disabled']]: +count < 2 }]"
                         @click="$emit('change', { count: +count - 1})"
                     />
                 </div>
 
-                <UiIcon
-                    name="ui/remove"
+                <div
                     :class="$style.remove"
                     @click="$emit('remove')"
                 />
@@ -79,7 +72,9 @@ const styleList = computed(() => [{
 
 .icon {
     flex-shrink: 0;
-    color: var(--icon-color);
+    width: 28px;
+    height: 28px;
+    object-fit: cover;
 }
 
 .name {
@@ -110,8 +105,22 @@ const styleList = computed(() => [{
 }
 
 .plus,
+.minus,
+.remove {
+    position: relative;
+    width: 24px;
+    height: 24px;
+
+    &:before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+    }
+}
+
+.plus,
 .minus {
-    color: var(--ui-additional-color);
     transition: all .1s ease-in-out;
     cursor: pointer;
 
@@ -120,7 +129,17 @@ const styleList = computed(() => [{
     }
 }
 
+.plus {
+    &:before {
+        content: '➕';
+    }
+}
+
 .minus {
+    &:before {
+        content: '➖';
+    }
+
     &.--is-disabled {
         opacity: .4;
         pointer-events: none;
@@ -128,9 +147,12 @@ const styleList = computed(() => [{
 }
 
 .remove {
-    color: var(--ui-secondary-color);
     transition: all .1s ease-in-out;
     cursor: pointer;
+
+    &:before {
+        content: '❌';
+    }
 
     @include hover {
         transform: scale(1.2);
