@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { stringify } from 'qs';
 import { toDataURL } from 'qrcode';
 import { useModalStore } from '~/stores/modalStore';
 
@@ -7,7 +6,6 @@ const modal = useModalStore();
 
 const buttonTitle = ref('Скопировать ссылку');
 const qrImage = ref('');
-const shareUrl = ref('');
 
 const generateQR = async (text: string) => {
     try {
@@ -18,19 +16,19 @@ const generateQR = async (text: string) => {
 };
 
 onMounted(() => {
-    const current = JSON.parse(localStorage.getItem(PRODUCT_CURRENT_LIST_KEY) || '{}');
-    shareUrl.value = `${location.href}?${stringify(current)}`;
-    generateQR(shareUrl.value);
+    generateQR(location.href);
 });
 
 const onCopy = async () => {
-    await copyTextToClipboard(shareUrl.value);
+    await copyTextToClipboard(location.href);
     buttonTitle.value = 'Ссылка скопирована';
 
     setTimeout(() => {
         buttonTitle.value = 'Скопировать ссылку';
     }, 2000);
 };
+
+const tgLink = computed(() => `https://t.me/share/url?url=${location.href}`);
 </script>
 
 <template>
@@ -39,12 +37,13 @@ const onCopy = async () => {
             <div :class="$style.content">
                 <img
                     :src="qrImage"
+                    loading="lazy"
                     alt=""
                     :class="$style.image"
                 >
                 <UiButton @click="onCopy">{{ buttonTitle }}</UiButton>
                 <NuxtLink
-                    :to="`https://t.me/share/url?url=${shareUrl}`"
+                    :to="tgLink"
                     target="_blank"
                     class="UiButton --medium-size"
                 >

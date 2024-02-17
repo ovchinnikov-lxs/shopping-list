@@ -1,12 +1,19 @@
 <script setup lang="ts">
-import { useListStore } from '~/stores/listStore';
-import { useModalStore } from '~/stores/modalStore';
-
-const listStore = useListStore();
+const supabase = useSupabaseClient();
+const user = useSupabaseUser();
 
 const onOpenModal = () => {
     const modal = useModalStore();
     modal.changeState();
+};
+
+const route = useRoute();
+
+const signOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+        console.log(error);
+    }
 };
 </script>
 
@@ -14,10 +21,12 @@ const onOpenModal = () => {
     <header class="TheHeader">
         <div :class="$style.wrapper">
             <main :class="$style.container" class="container">
-                <h1>Shopping list</h1>
+                <NuxtLink to="/" :class="$style.logo">
+                    <h1>Shopping list</h1>
+                </NuxtLink>
 
                 <LazyUiButton
-                    v-if="listStore.hasCurrent"
+                    v-if="route.params.id"
                     size="small"
                     @click="onOpenModal"
                 >
@@ -25,12 +34,12 @@ const onOpenModal = () => {
                 </LazyUiButton>
 
                 <LazyUiButton
-                    v-if="listStore.hasCurrent"
+                    v-if="user"
                     size="small"
-                    :class="$style.clear"
-                    @click="listStore.clearList"
+                    :class="$style.signOut"
+                    @click="signOut"
                 >
-                    Отчистить список
+                    Выйти
                 </LazyUiButton>
             </main>
         </div>
@@ -48,7 +57,6 @@ const onOpenModal = () => {
     min-height: calc(var(--ui-unit) * 13);
     padding: calc(var(--ui-unit) * 3) 0;
     background-color: var(--ui-primary-color);
-    color: var(--ui-white-color);
 
     @include respond-to(tablet) {
         h1 {
@@ -63,7 +71,11 @@ const onOpenModal = () => {
     column-gap: calc(var(--ui-unit) * 3);
 }
 
-.clear {
+.logo {
+    color: var(--ui-white-color);
+}
+
+.signOut {
     margin-left: auto;
 }
 </style>

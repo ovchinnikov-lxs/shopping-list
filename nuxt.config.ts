@@ -6,6 +6,12 @@ const DESCRIPTION = 'Welcome to our web application for shopping lists! Here, yo
 export default defineNuxtConfig({
     ssr: false,
 
+    runtimeConfig: {
+        public: {
+            API_BASE_URL: 'http://localhost:3000',
+        },
+    },
+
     spaLoadingTemplate: 'spa-loading-template.html',
 
     imports: {
@@ -46,63 +52,67 @@ export default defineNuxtConfig({
     devtools: { enabled: true },
 
     modules: [
-        '@pinia/nuxt',
-        '@vite-pwa/nuxt',
-    ],
-
-    pwa: {
-        registerType: 'autoUpdate',
-        manifest: {
-            name: 'Shopping List',
-            short_name: 'SL',
-            start_url: '/shopping-list/',
-            description: DESCRIPTION,
-            background_color: '#ffffff',
-            theme_color: '#3498db',
-            display: 'standalone',
-            lang: 'ru',
-            icons: [
-                {
-                    src: 'https://img.icons8.com/?size=72&id=bfckrEmgzrfN&format=png',
-                    sizes: '72x72',
-                    type: 'image/png',
-                },
-                {
-                    src: 'https://img.icons8.com/?size=96&id=bfckrEmgzrfN&format=png',
-                    sizes: '96x96',
-                    type: 'image/png',
-                    purpose: 'any maskable',
-                },
-                {
-                    src: 'https://img.icons8.com/?size=144&id=bfckrEmgzrfN&format=png',
-                    sizes: '144x144',
-                    type: 'image/png',
-                },
-                {
-                    src: 'https://img.icons8.com/?size=512&id=bfckrEmgzrfN&format=png',
-                    sizes: '512x512',
-                    type: 'image/png',
-                },
-            ],
-        },
-        workbox: {
-            navigateFallbackDenylist: [/^\//],
-        },
-        devOptions: {
-            enabled: process.env.NODE_ENV === 'development',
-            suppressWarnings: true,
-            navigateFallbackAllowlist: [/^\/$/],
-            type: 'module',
-        },
-    },
-
-    pinia: {
-        autoImports: [
+        ['@pinia/nuxt', {
+            autoImports: [
             // automatically imports `defineStore`
-            'defineStore', // import { defineStore } from 'pinia'
-            ['defineStore', 'definePiniaStore'], // import { defineStore as definePiniaStore } from 'pinia'
-        ],
-    },
+                'defineStore', // import { defineStore } from 'pinia'
+                ['defineStore', 'definePiniaStore'], // import { defineStore as definePiniaStore } from 'pinia'
+            ],
+        }],
+
+        ['@vite-pwa/nuxt', {
+            registerType: 'autoUpdate',
+            manifest: {
+                name: 'Shopping List',
+                short_name: 'SL',
+                start_url: '/shopping-list/',
+                description: DESCRIPTION,
+                background_color: '#ffffff',
+                theme_color: '#3498db',
+                display: 'standalone',
+                lang: 'ru',
+                icons: [
+                    {
+                        src: 'https://img.icons8.com/?size=72&id=bfckrEmgzrfN&format=png',
+                        sizes: '72x72',
+                        type: 'image/png',
+                    },
+                    {
+                        src: 'https://img.icons8.com/?size=96&id=bfckrEmgzrfN&format=png',
+                        sizes: '96x96',
+                        type: 'image/png',
+                        purpose: 'any maskable',
+                    },
+                    {
+                        src: 'https://img.icons8.com/?size=144&id=bfckrEmgzrfN&format=png',
+                        sizes: '144x144',
+                        type: 'image/png',
+                    },
+                    {
+                        src: 'https://img.icons8.com/?size=512&id=bfckrEmgzrfN&format=png',
+                        sizes: '512x512',
+                        type: 'image/png',
+                    },
+                ],
+            },
+            workbox: {
+                navigateFallbackDenylist: [/^\//],
+            },
+            devOptions: {
+                enabled: process.env.NODE_ENV === 'development',
+                suppressWarnings: true,
+                navigateFallbackAllowlist: [/^\/$/],
+                type: 'module',
+            },
+        }],
+
+        ['@nuxtjs/supabase', {
+            redirectOptions: {
+                login: '/login',
+                callback: '/confirm',
+            },
+        }],
+    ],
 
     router: {
         options: {
