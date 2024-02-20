@@ -9,8 +9,9 @@ import { UiInput } from '@ovchinnikov-lxs-frontend/ui-kit';
 
 <style lang="scss">
 .UiInput {
-    border-radius: var(--ui-unit);
+    border-radius: var(--ui-border-radius-m);
     border: 3px solid var(--ui-primary-color);
+    background-color: var(--ui-white-color);
 
     &.--medium-size {
         padding: calc(var(--ui-unit) * 2) calc(var(--ui-unit) * 4);

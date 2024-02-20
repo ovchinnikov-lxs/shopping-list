@@ -1,18 +1,11 @@
 <script setup lang="ts">
 import { nanoid } from 'nanoid';
-import throttle from 'lodash/throttle';
+import debounce from 'lodash/debounce';
 import type { Database } from '~/types/supabase';
 import type { IProduct } from '~/types/product';
 
-
 const client = useSupabaseClient<Database>();
-const user = useSupabaseUser();
-
-watch(user, () => {
-    if (!user.value) {
-        return navigateTo('/login');
-    }
-}, { immediate: true });
+const i18n = useI18n();
 
 const currentList = ref<IProduct[]>([]);
 
@@ -38,31 +31,61 @@ const { data, pending } = await useLazyAsyncData(async () => {
     }
 });
 
-// if (!data?.value) {
-//     showError({
-//         statusCode: 404,
-//         statusMessage: 'Page Not Found',
-//     });
-// }
+watch(pending, val => {
+    if (!val && !data.value) {
+        throw showError({
+            statusCode: 404,
+            statusMessage: i18n.t('pages.listDetail.notFound.message'),
+            fatal: true,
+        });
+    }
+}, {
+    immediate: true,
+});
+
+useSeoMeta({
+    title: () => {
+        if (!data.value) {
+            return '';
+        }
+
+        const date = new Date(data.value.created_at).toLocaleDateString(i18n.locale.value, {
+            weekday: 'short',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+        });
+
+        return `${i18n.t('pages.listDetail.title')} - ${date}`;
+    },
+});
 
 const isLoading = ref(false);
 
-watch(() => currentList.value, list => {
-    const fun = throttle(async () => {
+watch(() => currentList.value, (list, oldValue) => {
+    const updateList = debounce(async () => {
         if (!data.value?.id) {
+            return false;
+        }
+
+        if (oldValue === undefined) {
             return false;
         }
 
         isLoading.value = true;
         await client.from('Lists')
             .update({
+                // @ts-ignore
                 list,
             })
             .eq('id', data.value.id);
         isLoading.value = false;
-    }, 1000);
+    }, 300);
 
-    fun();
+    updateList();
 }, {
     deep: true,
 });
@@ -135,12 +158,12 @@ const classList = computed(() => [{
                     <UiTextarea
                         id="product-input"
                         v-model="actualValue"
-                        placeholder="Введите название"
+                        :placeholder="$t('pages.listDetail.input.placeholder')"
                         :class="$style.input"
                     />
 
                     <UiButton :disabled="!actualValue" :class="$style.button">
-                        Добавить
+                        {{ $t('pages.listDetail.button.add') }}
                     </UiButton>
                 </form>
 
@@ -167,7 +190,6 @@ const classList = computed(() => [{
     flex-direction: column;
     width: 100%;
     row-gap: calc(var(--ui-unit) * 8);
-    background-color: var(--ui-white-color);
 
     @include respond-to(tablet) {
         flex-direction: column-reverse;

@@ -1,35 +1,61 @@
 <script setup lang="ts">
 const supabase = useSupabaseClient();
 const config = useRuntimeConfig();
+const style = useCssModule();
+const i18n = useI18n();
+
+interface IInfo {
+    status: 'success' | 'error';
+    message: string;
+}
+
+useSeoMeta({
+    title: () => i18n.t('pages.login.title'),
+});
 
 const email = ref('');
-const info = ref('');
+const info: IInfo = reactive({
+    status: 'success',
+    message: '',
+});
 
 async function onSubmit() {
+    info.message = '';
+    info.status = 'success';
+
     try {
         const { error } = await supabase.auth.signInWithOtp({
             email: email.value,
             options: {
-                emailRedirectTo: config.public.API_BASE_URL + config.app.baseURL + 'confirm',
+                emailRedirectTo: location.origin + config.app.baseURL + 'confirm',
             },
         });
 
         if (error) {
-            info.value = 'Произошла ошибка при отправке: ' + error.message;
+            info.message = i18n.t('pages.login.info.error') + error.message;
+            info.status = 'error';
         } else {
-            info.value = 'На вашу почту отправлена ссылка для входа';
+            info.message = i18n.t('pages.login.info.success');
+            info.status = 'success';
         }
     } catch (e) {
-        info.value = 'Произошла ошибка непредвиденная ошибка, попробуйте позже';
+        info.message = i18n.t('pages.login.info.undefinedError');
+        info.status = 'error';
         console.error('LOGIN_PAGE:ON_SUBMIT:', e);
     }
 }
+
+const infoClassList = computed(() => [
+    [style[`--${info.status}-status`]],
+]);
 </script>
 
 <template>
     <div class="LoginPage">
         <form :class="$style.wrapper" @submit.prevent="onSubmit">
-            Введите почту что бы начать
+            <h3>
+                {{ $t('pages.login.subtitle') }}
+            </h3>
 
             <UiInput
                 id="login-email"
@@ -38,17 +64,19 @@ async function onSubmit() {
                 autocomplete="email"
                 required
                 type="email"
-                placeholder="Введите e-mail"
-                title="Введите e-mail"
+                :placeholder="$t('pages.login.input.placeholder')"
+                :title="$t('pages.login.input.title')"
             />
 
             <UiButton :disabled="!email?.length">
-                Отправить код для входа
+                {{ $t('pages.login.button.submit') }}
             </UiButton>
 
-            <div v-if="info" :class="$style.info">
-                {{ info }}
-            </div>
+            <Transition name="bottom" mode="out-in">
+                <div v-if="info.message" :class="[$style.info, infoClassList]">
+                    {{ info.message }}
+                </div>
+            </Transition>
         </form>
     </div>
 </template>
@@ -63,8 +91,14 @@ async function onSubmit() {
 }
 
 .info {
-    padding: 8px;
-    border-radius: 4px;
-    border: 3px solid var(--ui-primary-color);
+    padding: calc(var(--ui-unit) * 3);
+
+    &.--success-status {
+        color: var(--ui-secondary-color);
+    }
+
+    &.--error-status {
+        color: var(--ui-error-color);
+    }
 }
 </style>

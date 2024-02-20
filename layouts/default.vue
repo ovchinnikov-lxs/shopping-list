@@ -12,7 +12,7 @@ const modal = useModalStore();
             <slot />
         </div>
 
-        <transition name="fade">
+        <transition name="bottom" mode="out-in">
             <LazyTheModal v-if="modal.isOpened" :class="$style.modal"/>
         </transition>
 

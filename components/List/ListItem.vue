@@ -66,14 +66,16 @@ defineEmits<{
     height: 100%;
     min-height: var(--ui-col);
     column-gap: calc(var(--ui-unit) * 4);
-    padding: calc(var(--ui-unit) * 3) 0;
-    border-bottom: 2px solid var(--ui-primary-color);
+    padding: calc(var(--ui-unit) * 3);
+    border-radius: var(--ui-border-radius-m);
+    border: 2px solid var(--ui-primary-color);
 }
 
 .icon {
     flex-shrink: 0;
     width: 28px;
     height: 28px;
+    border-radius: var(--ui-border-radius-m);
     object-fit: cover;
 }
 
@@ -86,7 +88,7 @@ defineEmits<{
 
 .count {
     padding: var(--ui-unit) calc(var(--ui-unit) * 3);
-    border-radius: calc(var(--ui-unit) * 4);
+    border-radius: var(--ui-border-radius-m);
     background-color: var(--ui-primary-color);
     font-size: 12px;
     color: var(--ui-white-color);

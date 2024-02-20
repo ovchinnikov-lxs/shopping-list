@@ -3,13 +3,19 @@ import { toDataURL } from 'qrcode';
 import { useModalStore } from '~/stores/modalStore';
 
 const modal = useModalStore();
+const i18n = useI18n();
 
-const buttonTitle = ref('Скопировать ссылку');
+const buttonTitle = ref(i18n.t('modal.button.share.link.copy'));
 const qrImage = ref('');
 
 const generateQR = async (text: string) => {
     try {
-        qrImage.value = await toDataURL(text);
+        qrImage.value = await toDataURL(text, {
+            type: 'image/webp',
+            color: {
+                light: '#0000', // Transparent background
+            },
+        });
     } catch (err) {
         console.error(err);
     }
@@ -21,10 +27,10 @@ onMounted(() => {
 
 const onCopy = async () => {
     await copyTextToClipboard(location.href);
-    buttonTitle.value = 'Ссылка скопирована';
+    buttonTitle.value = i18n.t('modal.button.share.link.copied');
 
     setTimeout(() => {
-        buttonTitle.value = 'Скопировать ссылку';
+        buttonTitle.value = i18n.t('modal.button.share.link.copy');
     }, 2000);
 };
 
@@ -47,7 +53,7 @@ const tgLink = computed(() => `https://t.me/share/url?url=${location.href}`);
                     target="_blank"
                     class="UiButton --medium-size"
                 >
-                    Поделиться в TG
+                    {{ $t('modal.button.share.tg') }}
                 </NuxtLink>
             </div>
         </div>
@@ -67,8 +73,10 @@ const tgLink = computed(() => `https://t.me/share/url?url=${location.href}`);
 .content {
     display: flex;
     flex-direction: column;
+    min-width: 30%;
     row-gap: calc(var(--ui-unit) * 4);
     padding: var(--ui-col);
+    border-radius: var(--ui-border-radius-m);
     background-color: var(--ui-white-color);
 }
 
@@ -76,5 +84,6 @@ const tgLink = computed(() => `https://t.me/share/url?url=${location.href}`);
     @include aspect-ratio(1,1);
 
     width: 100%;
+    border-radius: var(--ui-border-radius-m);
 }
 </style>

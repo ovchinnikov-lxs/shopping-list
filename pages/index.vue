@@ -2,12 +2,12 @@
 import type { Database, Tables } from '~/types/supabase';
 const client = useSupabaseClient<Database>();
 const user = useSupabaseUser();
+const i18n = useI18n();
+const localePath = useLocalePath();
 
-watch(user, () => {
-    if (!user.value) {
-        return navigateTo('/login');
-    }
-}, { immediate: true });
+useSeoMeta({
+    title: () => i18n.t('pages.index.title'),
+});
 
 const { data, pending, refresh } = await useLazyAsyncData(async () => {
     try {
@@ -41,7 +41,7 @@ async function onCreate() {
             .select('id');
 
         if (res.data) {
-            await navigateTo(`/list/${res.data[0].id}`);
+            await navigateTo(localePath(`/list/${res.data[0].id}`));
         }
     } catch (e) {
         console.error('INDEX_PAGE:ON_CREATE:', e);
@@ -54,20 +54,34 @@ async function onDelete(id: string) {
         .eq('id', id);
     await refresh();
 }
+
+const listTitle = computed(() => (item: Tables<'Lists'>) => {
+    const date = new Date(item.created_at).toLocaleDateString(i18n.locale.value, {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+    });
+
+    return `${i18n.t('pages.index.list.item.title')} - ${date}`;
+});
 </script>
 
 <template>
     <div class="IndexPage">
         <div :class="$style.wrapper">
             <header :class="$style.header">
-                <h3>Ваши списки</h3>
+                <h3>{{ $t('pages.index.subtitle') }}</h3>
 
-                <UiButton @click="onCreate">Добавить</UiButton>
+                <UiButton @click="onCreate">{{ $t('pages.index.button.add') }}</UiButton>
             </header>
 
 
             <div :class="$style.list">
-                <TheLoader v-if="pending" :class="$style.loader"/>
+                <LazyTheLoader v-if="pending" :class="$style.loader"/>
 
                 <template v-else-if="lists.length">
                     <div
@@ -75,9 +89,9 @@ async function onDelete(id: string) {
                         :key="item.id"
                         :class="$style.item"
                     >
-                        <NuxtLink :to="`/list/${item.id}`" :class="$style.link">
-                            Список от {{ new Date(item.created_at).toString() }}
-                        </NuxtLink>
+                        <NuxtLinkLocale :to="`/list/${item.id}`" :class="$style.link">
+                            {{ listTitle(item) }}
+                        </NuxtLinkLocale>
 
                         <div :class="$style.delete" @click="onDelete(item.id)">
                             ❌
@@ -86,7 +100,7 @@ async function onDelete(id: string) {
                 </template>
 
                 <template v-else>
-                    У вас еще нет ни одного списка
+                    {{ $t('pages.index.list.empty') }}
                 </template>
             </div>
         </div>
@@ -99,7 +113,7 @@ async function onDelete(id: string) {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    row-gap: 24px;
+    row-gap: 48px;
 }
 
 .header {

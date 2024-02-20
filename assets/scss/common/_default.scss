@@ -7,18 +7,21 @@
 :root {
 
     /**
-    UI STYLES (you can add rules of your design kit)
+        UI STYLES (you can add rules of your design kit)
      */
     --ui-unit: 4px;
     --ui-col: 40px;
-    --ui-primary-color: #3498db;
-    --ui-secondary-color: #e74c3c;
-    --ui-additional-color: #2ecc71;
-    --ui-white-color: #fff;
+    --ui-primary-color: #201658;
+    --ui-secondary-color: #1d24ca;
+    --ui-additional-color: #98abee;
+    --ui-white-color: #f9e8c9;
     --ui-black-color: #000;
+    --ui-error-color: #ff3636;
+    --ui-border-radius-m: calc(var(--ui-unit) * 8);
 }
 
 body {
+    background-color: var(--ui-white-color);
     font-family: 'Roboto', sans-serif;
     color: var(--ui-black-color);
 }
@@ -29,6 +32,6 @@ body {
 
     @include respond-to(tablet) {
         width: 100%;
-        padding: 0 calc(var(--ui-unit) * 4);
+        padding: 0 calc(var(--ui-unit) * 5);
     }
 }

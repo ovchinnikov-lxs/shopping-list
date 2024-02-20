@@ -11,9 +11,9 @@ import { UiButton } from '@ovchinnikov-lxs-frontend/ui-kit';
 
 <style lang="scss">
 .UiButton {
-    border-radius: var(--ui-unit);
-    border: 3px solid var(--ui-additional-color);
-    background-color: var(--ui-additional-color);
+    border-radius: var(--ui-border-radius-m);
+    border: 3px solid var(--ui-secondary-color);
+    background-color: var(--ui-secondary-color);
     color: var(--ui-white-color);
 
     &.--medium-size {
@@ -35,8 +35,8 @@ import { UiButton } from '@ovchinnikov-lxs-frontend/ui-kit';
     }
 
     @include hover {
-        border-color: var(--ui-secondary-color);
-        background-color: var(--ui-secondary-color);
+        border-color: var(--ui-additional-color);
+        background-color: var(--ui-additional-color);
     }
 }
 </style>

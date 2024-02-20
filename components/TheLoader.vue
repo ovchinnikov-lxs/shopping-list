@@ -14,14 +14,14 @@
                 r="28"
                 fill="none"
                 stroke="url(#sGD)"
-                stroke-width="8"
+                stroke-width="6"
             />
             <path
                 class="path-solid"
                 d="M 32,4 A 28 28,0,0,0,32,60"
                 fill="none"
                 stroke="#000"
-                stroke-width="8"
+                stroke-width="6"
                 stroke-linecap="round"
             />
 
@@ -62,14 +62,14 @@
 
 <style scoped lang="scss">
 #spinner {
-    width: 30px;
+    width: 48px;
 }
 
 #spinner #sGD stop {
-    stop-color: #16a34a;
+    stop-color: var(--ui-primary-color);
 }
 
 #spinner .path-solid {
-    stroke: #16a34a;
+    stroke: var(--ui-primary-color);
 }
 </style>

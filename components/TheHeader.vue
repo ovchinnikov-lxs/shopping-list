@@ -23,6 +23,11 @@ const signOut = async () => {
             <main :class="$style.container" class="container">
                 <NuxtLink to="/" :class="$style.logo">
                     <h1>Shopping list</h1>
+                    <img
+                        src="/img/logo.svg"
+                        alt=""
+                        loading="lazy"
+                    >
                 </NuxtLink>
 
                 <LazyUiButton
@@ -30,17 +35,22 @@ const signOut = async () => {
                     size="small"
                     @click="onOpenModal"
                 >
-                    Поделиться
+                    {{ $t('header.button.share') }}
                 </LazyUiButton>
 
-                <LazyUiButton
-                    v-if="user"
-                    size="small"
-                    :class="$style.signOut"
-                    @click="signOut"
-                >
-                    Выйти
-                </LazyUiButton>
+                <div v-if="user" :class="$style.user">
+                    <b>
+                        {{ user.email }}
+                    </b>
+
+                    <LazyUiButton
+                        size="small"
+                        :class="$style.signOut"
+                        @click="signOut"
+                    >
+                        {{ $t('button.signOut') }}
+                    </LazyUiButton>
+                </div>
             </main>
         </div>
     </header>
@@ -56,6 +66,8 @@ const signOut = async () => {
     height: 100%;
     min-height: calc(var(--ui-unit) * 13);
     padding: calc(var(--ui-unit) * 3) 0;
+    border-bottom-left-radius: var(--ui-border-radius-m);
+    border-bottom-right-radius: var(--ui-border-radius-m);
     background-color: var(--ui-primary-color);
 
     @include respond-to(tablet) {
@@ -73,9 +85,45 @@ const signOut = async () => {
 
 .logo {
     color: var(--ui-white-color);
+
+    img {
+        display: none;
+        width: 32px;
+        height: 32px;
+
+        @include respond-to(tablet) {
+            display: block;
+        }
+    }
+
+    h1 {
+        display: block;
+
+        @include respond-to(tablet) {
+            display: none;
+        }
+    }
+}
+
+.user {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    column-gap: calc(var(--ui-unit) * 2);
+    margin-left: auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px;
+    color: var(--ui-white-color);
+
+    b {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 }
 
 .signOut {
-    margin-left: auto;
+    flex-shrink: 0;
 }
 </style>

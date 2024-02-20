@@ -44,9 +44,10 @@ onMounted(() => {
 <style lang="scss">
 .UiTextarea {
     min-height: 50px;
-    resize: none;
-    border-radius: var(--ui-unit);
+    border-radius: var(--ui-border-radius-m);
     border: 3px solid var(--ui-primary-color);
+    background-color: var(--ui-white-color);
+    resize: none;
 
     @include respond-to(tablet) {
         min-height: 40px;

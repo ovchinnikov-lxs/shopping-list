@@ -1,4 +1,15 @@
 <style>
+    :root {
+        --ui-unit: 4px;
+        --ui-col: 40px;
+        --ui-primary-color: #201658;
+        --ui-secondary-color: #1d24ca;
+        --ui-additional-color: #98abee;
+        --ui-white-color: #f9e8c9;
+        --ui-black-color: #000;
+        --ui-border-radius-m: calc(var(--ui-unit) * 8);
+    }
+
     .loading {
         background-color: var(--ui-white-color);
         position: absolute;
@@ -13,35 +24,73 @@
     }
 
     #spinner {
-        width: 30px;
+        width: 48px;
     }
 
     #spinner #sGD stop {
-        stop-color: #16a34a;
+        stop-color: var(--ui-primary-color);
     }
 
     #spinner .path-solid {
-        stroke: #16a34a;
+        stroke: var(--ui-primary-color);
     }
 </style>
 <div class="loading">
-    <svg version="1.1" viewBox="0 0 64 64" width="1em" xmlns="http://www.w3.org/2000/svg" id="spinner">
-        <circle class="path-gradient" cx="32" cy="32" r="28" fill="none" stroke="url(#sGD)" stroke-width="8" />
-        <path class="path-solid" d="M 32,4 A 28 28,0,0,0,32,60" fill="none" stroke="#000" stroke-width="8" stroke-linecap="round"/>
+   <svg
+            id="spinner"
+            version="1.1"
+            viewBox="0 0 64 64"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <circle
+                class="path-gradient"
+                cx="32"
+                cy="32"
+                r="28"
+                fill="none"
+                stroke="url(#sGD)"
+                stroke-width="6"
+            />
+            <path
+                class="path-solid"
+                d="M 32,4 A 28 28,0,0,0,32,60"
+                fill="none"
+                stroke="#000"
+                stroke-width="6"
+                stroke-linecap="round"
+            />
 
-        <defs>
-            <linearGradient id="sGD" gradientUnits="userSpaceOnUse" x1="32" y1="0" x2="32" y2="64">
-                <stop stop-color="#000" offset="0.1" stop-opacity="0" class="stop1"></stop>
-                <stop stop-color="#000" offset=".9" stop-opacity="1" class="stop2"></stop>
-            </linearGradient>
-        </defs>
+            <defs>
+                <linearGradient
+                    id="sGD"
+                    gradientUnits="userSpaceOnUse"
+                    x1="32"
+                    y1="0"
+                    x2="32"
+                    y2="64"
+                >
+                    <stop
+                        stop-color="#000"
+                        offset="0.1"
+                        stop-opacity="0"
+                        class="stop1"
+                    />
+                    <stop
+                        stop-color="#000"
+                        offset=".9"
+                        stop-opacity="1"
+                        class="stop2"
+                    />
+                </linearGradient>
+            </defs>
 
-        <animateTransform
-          values="0,0,0;360,0,0"
-          attributeName="transform"
-          type="rotate"
-          repeatCount="indefinite"
-          dur="750ms">
-        </animateTransform>
-    </svg>
+            <animateTransform
+                values="0,0,0;360,0,0"
+                attributeName="transform"
+                type="rotate"
+                repeatCount="indefinite"
+                dur="750ms"
+            />
+        </svg>
 </div>

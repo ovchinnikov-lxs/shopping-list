@@ -6,11 +6,11 @@ const DESCRIPTION = 'Welcome to our web application for shopping lists! Here, yo
 export default defineNuxtConfig({
     ssr: false,
 
-    runtimeConfig: {
-        public: {
-            API_BASE_URL: 'http://localhost:3000',
-        },
-    },
+    // runtimeConfig: { // TODO: How add .env in github action
+    //     public: {
+    //         API_BASE_URL: 'http://localhost:3000',
+    //     },
+    // },
 
     spaLoadingTemplate: 'spa-loading-template.html',
 
@@ -25,25 +25,8 @@ export default defineNuxtConfig({
     app: {
         baseURL: '/shopping-list/',
         head: {
-            title: 'Shopping List - create and share',
             charset: 'utf-16',
             viewport: 'width=device-width, initial-scale=1',
-            htmlAttrs: {
-                lang: 'ru',
-            },
-            meta: [
-                { name: 'theme-color', content: '#3498db' },
-                { name: 'description', content: DESCRIPTION },
-                { name: 'keywords', content: 'Shopping list, share list' },
-                { name: 'author', content: 'Alexander Ovchinnikov' },
-                { property: 'og:title', content: 'Shopping List' },
-                { property: 'og:description', content: DESCRIPTION },
-                { property: 'og:type', content: 'website' },
-                { property: 'og:url', content: 'https://ovchinnikov-lxs.github.io/shopping-list/' },
-                { name: 'twitter:card', content: 'app' },
-                { name: 'twitter:title', content: 'Shopping List - create and share' },
-                { name: 'twitter:description', content: DESCRIPTION },
-            ],
         },
     },
 
@@ -52,6 +35,26 @@ export default defineNuxtConfig({
     devtools: { enabled: true },
 
     modules: [
+        ['@nuxtjs/i18n', {
+            locales: [
+                {
+                    code: 'ru',
+                    iso: 'ru-RU',
+                },
+                {
+                    code: 'en',
+                    iso: 'en-US',
+                },
+            ],
+            defaultLocale: 'ru',
+            strategies: 'prefix_except_default',
+            detectBrowserLanguage: {
+                useCookie: true,
+                cookieKey: 'i18n_redirected',
+                redirectOn: 'root', // recommended
+            },
+        }],
+
         ['@pinia/nuxt', {
             autoImports: [
             // automatically imports `defineStore`
@@ -106,7 +109,9 @@ export default defineNuxtConfig({
             },
         }],
 
-        ['@nuxtjs/supabase', {
+        ['@nuxtjs/supabase', { // TODO: How add .env in github action
+            url: 'https://rihjywbwdijfaikghqkm.supabase.co',
+            key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJpaGp5d2J3ZGlqZmFpa2docWttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDgxNTU2MjksImV4cCI6MjAyMzczMTYyOX0.faSQlNX9u2hiEbUvLbMk_KiCkZdQd-yXhxKgIVtREh0',
             redirectOptions: {
                 login: '/login',
                 callback: '/confirm',
