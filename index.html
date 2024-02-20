@@ -1,30 +1,25 @@
-<!DOCTYPE html><html lang="ru"><head><meta charset="utf-16">
+<!DOCTYPE html><html><head><meta charset="utf-16">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shopping List - create and share</title>
-<meta name="theme-color" content="#3498db">
-<meta name="description" content="Welcome to our web application for shopping lists! Here, you will find a convenient way to create and manage your shopping lists. Create lists for grocery shopping, plan your culinary experiments, or even organize your tasks.">
-<meta name="keywords" content="Shopping list, share list">
-<meta name="author" content="Alexander Ovchinnikov">
-<meta property="og:title" content="Shopping List">
-<meta property="og:description" content="Welcome to our web application for shopping lists! Here, you will find a convenient way to create and manage your shopping lists. Create lists for grocery shopping, plan your culinary experiments, or even organize your tasks.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://ovchinnikov-lxs.github.io/shopping-list/">
-<meta name="twitter:card" content="app">
-<meta name="twitter:title" content="Shopping List - create and share">
-<meta name="twitter:description" content="Welcome to our web application for shopping lists! Here, you will find a convenient way to create and manage your shopping lists. Create lists for grocery shopping, plan your culinary experiments, or even organize your tasks.">
-<link rel="stylesheet" href="/shopping-list/_nuxt/entry.ZaMkzaTw.css">
-<link rel="modulepreload" as="script" crossorigin href="/shopping-list/_nuxt/entry.AF3NS2Oi.js">
-<link rel="prefetch" as="style" href="/shopping-list/_nuxt/default._-esGpxS.css">
-<link rel="prefetch" as="script" crossorigin href="/shopping-list/_nuxt/default.9D0x6cv4.js">
-<link rel="prefetch" as="script" crossorigin href="/shopping-list/_nuxt/_plugin-vue_export-helper.x3n3nnut.js">
-<link rel="prefetch" as="script" crossorigin href="/shopping-list/_nuxt/nuxt-link.03DK_RSO.js">
-<link rel="prefetch" as="script" crossorigin href="/shopping-list/_nuxt/workbox-window.prod.es5.prqDwDSL.js">
-<link rel="prefetch" as="style" href="/shopping-list/_nuxt/error-404.SaR2Zalm.css">
-<link rel="prefetch" as="script" crossorigin href="/shopping-list/_nuxt/error-404.4o4s1nzq.js">
-<link rel="prefetch" as="style" href="/shopping-list/_nuxt/error-500.2itWk7wX.css">
-<link rel="prefetch" as="script" crossorigin href="/shopping-list/_nuxt/error-500.pfTIagLL.js">
-<script type="module" src="/shopping-list/_nuxt/entry.AF3NS2Oi.js" crossorigin></script>
-<script id="unhead:payload" type="application/json">{"title":"Shopping List - create and share"}</script></head><body><div id="__nuxt"><style>
+<link rel="stylesheet" href="/shopping-list/_nuxt/entry.CjRDF_dY.css">
+<link rel="modulepreload" as="script" crossorigin href="/shopping-list/_nuxt/entry.DQm97jWm.js">
+<link rel="prefetch" as="script" crossorigin href="/shopping-list/_nuxt/browser.DfAFEAqr.js">
+<link rel="prefetch" as="script" crossorigin href="/shopping-list/_nuxt/_commonjsHelpers.Cpj98o6Y.js">
+<link rel="prefetch" as="style" href="/shopping-list/_nuxt/default.DB8wPEtM.css">
+<link rel="prefetch" as="script" crossorigin href="/shopping-list/_nuxt/default.Ba27KLjJ.js">
+<link rel="prefetch" as="script" crossorigin href="/shopping-list/_nuxt/workbox-window.prod.es5.DFjpnwFp.js">
+<link rel="prefetch" as="script" crossorigin href="/shopping-list/_nuxt/i18n.config.CEwH9zPB.js">
+<script type="module" src="/shopping-list/_nuxt/entry.DQm97jWm.js" crossorigin></script></head><body><div id="__nuxt"><style>
+    :root {
+        --ui-unit: 4px;
+        --ui-col: 40px;
+        --ui-primary-color: #201658;
+        --ui-secondary-color: #1d24ca;
+        --ui-additional-color: #98abee;
+        --ui-white-color: #f9e8c9;
+        --ui-black-color: #000;
+        --ui-border-radius-m: calc(var(--ui-unit) * 8);
+    }
+
     .loading {
         background-color: var(--ui-white-color);
         position: absolute;
@@ -39,37 +34,75 @@
     }
 
     #spinner {
-        width: 30px;
+        width: 48px;
     }
 
     #spinner #sGD stop {
-        stop-color: #16a34a;
+        stop-color: var(--ui-primary-color);
     }
 
     #spinner .path-solid {
-        stroke: #16a34a;
+        stroke: var(--ui-primary-color);
     }
 </style>
 <div class="loading">
-    <svg version="1.1" viewBox="0 0 64 64" width="1em" xmlns="http://www.w3.org/2000/svg" id="spinner">
-        <circle class="path-gradient" cx="32" cy="32" r="28" fill="none" stroke="url(#sGD)" stroke-width="8" />
-        <path class="path-solid" d="M 32,4 A 28 28,0,0,0,32,60" fill="none" stroke="#000" stroke-width="8" stroke-linecap="round"/>
+   <svg
+            id="spinner"
+            version="1.1"
+            viewBox="0 0 64 64"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <circle
+                class="path-gradient"
+                cx="32"
+                cy="32"
+                r="28"
+                fill="none"
+                stroke="url(#sGD)"
+                stroke-width="6"
+            />
+            <path
+                class="path-solid"
+                d="M 32,4 A 28 28,0,0,0,32,60"
+                fill="none"
+                stroke="#000"
+                stroke-width="6"
+                stroke-linecap="round"
+            />
 
-        <defs>
-            <linearGradient id="sGD" gradientUnits="userSpaceOnUse" x1="32" y1="0" x2="32" y2="64">
-                <stop stop-color="#000" offset="0.1" stop-opacity="0" class="stop1"></stop>
-                <stop stop-color="#000" offset=".9" stop-opacity="1" class="stop2"></stop>
-            </linearGradient>
-        </defs>
+            <defs>
+                <linearGradient
+                    id="sGD"
+                    gradientUnits="userSpaceOnUse"
+                    x1="32"
+                    y1="0"
+                    x2="32"
+                    y2="64"
+                >
+                    <stop
+                        stop-color="#000"
+                        offset="0.1"
+                        stop-opacity="0"
+                        class="stop1"
+                    />
+                    <stop
+                        stop-color="#000"
+                        offset=".9"
+                        stop-opacity="1"
+                        class="stop2"
+                    />
+                </linearGradient>
+            </defs>
 
-        <animateTransform
-          values="0,0,0;360,0,0"
-          attributeName="transform"
-          type="rotate"
-          repeatCount="indefinite"
-          dur="750ms">
-        </animateTransform>
-    </svg>
+            <animateTransform
+                values="0,0,0;360,0,0"
+                attributeName="transform"
+                type="rotate"
+                repeatCount="indefinite"
+                dur="750ms"
+            />
+        </svg>
 </div>
 </div><script type="application/json" id="__NUXT_DATA__" data-ssr="false">[{"_errors":1,"serverRendered":2,"data":3,"state":4,"once":5},{},false,{},{},["Set"]]</script>
-<script>window.__NUXT__={};window.__NUXT__.config={public:{},app:{baseURL:"/shopping-list/",buildAssetsDir:"/_nuxt/",cdnURL:""}}</script></body></html>
+<script>window.__NUXT__={};window.__NUXT__.config={public:{i18n:{baseUrl:"",locales:{ru:{domain:""},en:{domain:""}}},supabase:{url:"https://rihjywbwdijfaikghqkm.supabase.co",key:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJpaGp5d2J3ZGlqZmFpa2docWttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDgxNTU2MjksImV4cCI6MjAyMzczMTYyOX0.faSQlNX9u2hiEbUvLbMk_KiCkZdQd-yXhxKgIVtREh0",redirect:true,redirectOptions:{login:"/login",callback:"/confirm",exclude:[],cookieRedirect:false},cookieName:"sb",cookieOptions:{maxAge:28800,sameSite:"lax",secure:true},clientOptions:{auth:{flowType:"pkce",detectSessionInUrl:true,persistSession:true,autoRefreshToken:true}}}},app:{baseURL:"/shopping-list/",buildAssetsDir:"/_nuxt/",cdnURL:""}}</script></body></html>
