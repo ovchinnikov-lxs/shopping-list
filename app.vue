@@ -1,6 +1,5 @@
 <script setup lang="ts">
 
-const user = useSupabaseUser();
 const i18n = useI18n();
 
 const i18nHead = useLocaleHead({
@@ -32,39 +31,27 @@ useSeoMeta({
     twitterTitle: () => i18n.t('app.title'),
     twitterDescription: () => i18n.t('app.description'),
 });
-
-watch(user, userVal => {
-    const localePath = useLocalePath();
-    const route = useRoute();
-
-    const AUTH_PAGES = [
-        localePath(`/list/${route.params.id}`),
-        localePath('/'),
-    ];
-
-    const PUBLIC_PAGES = [
-        localePath('/confirm'),
-        localePath('/login'),
-    ];
-
-    if (!userVal && AUTH_PAGES.includes(String(route.path))) {
-        return navigateTo(localePath('/login'), { replace: true });
-    } else if (userVal && PUBLIC_PAGES.includes(String(route.path))) {
-        if (route.redirectedFrom) {
-            return navigateTo(route.redirectedFrom);
-        }
-
-        return navigateTo(localePath('/'), { replace: true });
-    }
-}, { immediate: true });
 </script>
 
 
 <template>
-    <div>
+    <div class="AppInstance">
         <NuxtPwaManifest/>
         <NuxtLayout>
-            <NuxtPage/>
+            <div :class="$style.page">
+                <NuxtPage/>
+            </div>
         </NuxtLayout>
     </div>
 </template>
+
+
+<style lang="scss" module>
+.page {
+    width: 100%;
+
+    & > div {
+        width: 100%;
+    }
+}
+</style>

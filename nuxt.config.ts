@@ -74,25 +74,26 @@ export default defineNuxtConfig({
                 theme_color: '#3498db',
                 display: 'standalone',
                 lang: 'ru',
+                scope: '/shopping-list/',
                 icons: [
                     {
-                        src: 'https://img.icons8.com/?size=72&id=bfckrEmgzrfN&format=png',
+                        src: '/img/72x72.png',
                         sizes: '72x72',
                         type: 'image/png',
                     },
                     {
-                        src: 'https://img.icons8.com/?size=96&id=bfckrEmgzrfN&format=png',
+                        src: '/img/96x96.png',
                         sizes: '96x96',
                         type: 'image/png',
                         purpose: 'any maskable',
                     },
                     {
-                        src: 'https://img.icons8.com/?size=144&id=bfckrEmgzrfN&format=png',
+                        src: '/img/144x144.png',
                         sizes: '144x144',
                         type: 'image/png',
                     },
                     {
-                        src: 'https://img.icons8.com/?size=512&id=bfckrEmgzrfN&format=png',
+                        src: '/img/512x512.png',
                         sizes: '512x512',
                         type: 'image/png',
                     },

@@ -5,8 +5,8 @@ const style = useCssModule();
 const i18n = useI18n();
 
 interface IInfo {
-    status: 'success' | 'error';
-    message: string;
+    status: 'success' | 'error' | string;
+    details: string;
 }
 
 useSeoMeta({
@@ -15,13 +15,15 @@ useSeoMeta({
 
 const email = ref('');
 const info: IInfo = reactive({
-    status: 'success',
-    message: '',
+    status: '',
+    details: '',
 });
 
+const infoMessage = computed(() => i18n.t(`pages.login.info.${info.status}`));
+
 async function onSubmit() {
-    info.message = '';
-    info.status = 'success';
+    info.details = '';
+    info.status = '';
 
     try {
         const { error } = await supabase.auth.signInWithOtp({
@@ -32,15 +34,13 @@ async function onSubmit() {
         });
 
         if (error) {
-            info.message = i18n.t('pages.login.info.error') + error.message;
+            info.details = error.message;
             info.status = 'error';
         } else {
-            info.message = i18n.t('pages.login.info.success');
             info.status = 'success';
         }
     } catch (e) {
-        info.message = i18n.t('pages.login.info.undefinedError');
-        info.status = 'error';
+        info.status = 'undefinedError';
         console.error('LOGIN_PAGE:ON_SUBMIT:', e);
     }
 }
@@ -48,6 +48,18 @@ async function onSubmit() {
 const infoClassList = computed(() => [
     [style[`--${info.status}-status`]],
 ]);
+
+const user = useSupabaseUser();
+const localePath = useLocalePath();
+
+watch(user, async val => {
+    if (val) {
+        await nextTick();
+        await navigateTo(localePath('/'), {
+            replace: true,
+        });
+    }
+}, { immediate: true });
 </script>
 
 <template>
@@ -73,8 +85,8 @@ const infoClassList = computed(() => [
             </UiButton>
 
             <Transition name="bottom" mode="out-in">
-                <div v-if="info.message" :class="[$style.info, infoClassList]">
-                    {{ info.message }}
+                <div v-if="info.status" :class="[$style.info, infoClassList]">
+                    {{ infoMessage }} {{ info.details }}
                 </div>
             </Transition>
         </form>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const supabase = useSupabaseClient();
 const user = useSupabaseUser();
+const localePath = useLocalePath();
 
 const onOpenModal = () => {
     const modal = useModalStore();
@@ -11,9 +12,12 @@ const route = useRoute();
 
 const signOut = async () => {
     const { error } = await supabase.auth.signOut();
+
     if (error) {
         console.log(error);
     }
+
+    navigateTo(localePath('/login'));
 };
 </script>
 
