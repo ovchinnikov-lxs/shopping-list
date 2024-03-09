@@ -9,7 +9,7 @@ interface IInfo {
 }
 
 useSeoMeta({
-    title: () => i18n.t('pages.login.title'),
+    title: () => i18n.t('pages.register.title'),
 });
 
 const isLoading = ref(false);
@@ -23,7 +23,7 @@ const info: IInfo = reactive({
     details: '',
 });
 
-const infoMessage = computed(() => i18n.t(`pages.login.info.${info.status}`));
+const infoMessage = computed(() => i18n.t(`pages.register.info.${info.status}`));
 
 async function onSubmit() {
     if (isLoading.value) {
@@ -35,7 +35,7 @@ async function onSubmit() {
 
     try {
         isLoading.value = true;
-        const { error } = await supabase.auth.signInWithPassword(actualValue);
+        const { error } = await supabase.auth.signUp(actualValue);
 
         if (error) {
             info.details = error.message;
@@ -45,7 +45,7 @@ async function onSubmit() {
         }
     } catch (e) {
         info.status = 'undefinedError';
-        console.error('LOGIN_PAGE:ON_SUBMIT:', e);
+        console.error('register_PAGE:ON_SUBMIT:', e);
     } finally {
         isLoading.value = false;
     }
@@ -69,42 +69,42 @@ watch(user, async val => {
 </script>
 
 <template>
-    <div class="LoginPage">
+    <div class="RegisterPage">
         <form :class="$style.wrapper" @submit.prevent="onSubmit">
             <h3>
-                {{ $t('pages.login.subtitle') }}
+                {{ $t('pages.register.subtitle') }}
             </h3>
 
             <UiInput
-                id="login-email"
+                id="register-email"
                 v-model="actualValue.email"
                 maxlength="255"
                 autocomplete="email"
                 required
                 type="email"
-                :placeholder="$t('pages.login.email.placeholder')"
-                :title="$t('pages.login.email.title')"
+                :placeholder="$t('pages.register.email.placeholder')"
+                :title="$t('pages.register.email.title')"
             />
 
             <UiInput
-                id="login-password"
+                id="register-password"
                 v-model="actualValue.password"
                 maxlength="255"
                 autocomplete="password"
                 required
                 type="password"
-                :placeholder="$t('pages.login.password.placeholder')"
-                :title="$t('pages.login.password.title')"
+                :placeholder="$t('pages.register.password.placeholder')"
+                :title="$t('pages.register.password.title')"
             />
 
-            <NuxtLinkLocale to="/register">{{ $t('pages.login.registerLink') }}</NuxtLinkLocale>
+            <NuxtLinkLocale to="/login">{{ $t('pages.register.loginLink') }}</NuxtLinkLocale>
 
             <UiButton :disabled="!actualValue.email?.length && !actualValue.password?.length">
                 <template v-if="isLoading">
-                    {{ $t('pages.login.button.loading') }}
+                    {{ $t('pages.register.button.loading') }}
                 </template>
                 <template v-else>
-                    {{ $t('pages.login.button.submit') }}
+                    {{ $t('pages.register.button.submit') }}
                 </template>
             </UiButton>
 

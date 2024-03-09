@@ -55,21 +55,49 @@ export default defineI18nConfig(() => ({
                         add: 'Add',
                     },
                 },
-                login: {
-                    title: 'Sign in',
-                    subtitle: 'Enter your email to log in',
-                    input: {
+                register: {
+                    title: 'Sign up',
+                    subtitle: 'Enter your email and password to sign up',
+                    email: {
                         placeholder: 'Enter e-mail',
                         title: 'Enter e-mail',
                     },
+                    password: {
+                        placeholder: 'Enter password',
+                        title: 'Enter password',
+                    },
                     button: {
-                        submit: 'Send the login code',
+                        submit: 'ENTER',
+                        loading: 'Sending...',
                     },
                     info: {
                         success: 'A login link has been sent to your email',
                         error: 'An error occurred while sending: ',
                         undefinedError: 'An unexpected error has occurred, please try again later',
                     },
+                    loginLink: 'Do you have an account? Login',
+                },
+                login: {
+                    title: 'Sign in',
+                    subtitle: 'Enter your email to log in',
+                    email: {
+                        placeholder: 'Enter e-mail',
+                        title: 'Enter e-mail',
+                    },
+                    password: {
+                        placeholder: 'Enter password',
+                        title: 'Enter password',
+                    },
+                    button: {
+                        submit: 'ENTER',
+                        loading: 'Sending...',
+                    },
+                    info: {
+                        success: 'A login link has been sent to your email',
+                        error: 'An error occurred while sending: ',
+                        undefinedError: 'An unexpected error has occurred, please try again later',
+                    },
+                    registerLink: 'Register to login',
                 },
                 confirm: {
                     subtitle: 'Authentication',
@@ -137,21 +165,49 @@ export default defineI18nConfig(() => ({
                         add: 'Добавить',
                     },
                 },
-                login: {
-                    title: 'Вход',
-                    subtitle: 'Введите почту что бы войти',
-                    input: {
+                register: {
+                    title: 'Регистрация',
+                    subtitle: 'Введите почту и пароль что бы создать аккаунт',
+                    email: {
                         placeholder: 'Введите e-mail',
                         title: 'Введите e-mail',
                     },
+                    password: {
+                        placeholder: 'Введите пароль',
+                        title: 'Введите пароль',
+                    },
                     button: {
-                        submit: 'Отправить код для входа',
+                        submit: 'ВОЙТИ',
+                        loading: 'Отправка...',
                     },
                     info: {
                         success: 'На вашу почту отправлена ссылка для входа',
                         error: 'Произошла ошибка при отправке: ',
                         undefinedError: 'Произошла ошибка непредвиденная ошибка, попробуйте позже',
                     },
+                    loginLink: 'У вас уже есть аккаунт? Войти',
+                },
+                login: {
+                    title: 'Вход',
+                    subtitle: 'Введите почту что бы войти',
+                    email: {
+                        placeholder: 'Введите e-mail',
+                        title: 'Введите e-mail',
+                    },
+                    password: {
+                        placeholder: 'Введите пароль',
+                        title: 'Введите пароль',
+                    },
+                    button: {
+                        submit: 'ВОЙТИ',
+                        loading: 'Отправка...',
+                    },
+                    info: {
+                        success: 'На вашу почту отправлена ссылка для входа',
+                        error: 'Произошла ошибка при отправке: ',
+                        undefinedError: 'Произошла ошибка непредвиденная ошибка, попробуйте позже',
+                    },
+                    registerLink: 'Зарегистрируйтесь что бы войти',
                 },
                 confirm: {
                     subtitle: 'Аутентификация',
